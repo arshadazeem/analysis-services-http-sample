@@ -20,13 +20,8 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy
         }
         internal  JwtSecurityToken ReadToken(string bearerToken)
         {
-            var handler = new JwtSecurityTokenHandler();
-            //if handler.CanReadToken(bearerToken);
+            var handler = new JwtSecurityTokenHandler();            
             var token = handler.ReadJwtToken(bearerToken);
-            //var upn = token.Claims.Single(c => c.Type == "upn").Value;
-            //validTo = token.ValidTo.ToLocalTime();
-            //var validDuration = token.ValidTo.Subtract(DateTime.UtcNow);
-            //log.Info($"bearer token recievied for {upn} valid for {(int)validDuration.TotalMinutes}min {((int)validDuration.TotalSeconds) % 60}sec");
             return token;
         }
 
@@ -55,7 +50,7 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy
             {
                 var parts = authData.UPN.Split('@');
 
-                if (false && authData.UPN.StartsWith("app:"))  //app:[ClientId]@[TenantID]  Client provided both ClientId and ClientSecret
+                if (authData.UPN.StartsWith("app:"))  //app:[ClientId]@[TenantID]  Client provided both ClientId and ClientSecret
                 {
                     var split = authData.UPN.Split('@');
                     var clientId = split[0][4..];
@@ -73,7 +68,6 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy
                     var token = await GetBearerTokenAsync(clientId, authData.PasswordOrToken, tenantIdFromAuthHeader);
                     constr = $"Data Source={server};Password={token};Catalog={database};";//Persist Security Info=True; Impersonation Level=Impersonate";
 
-
                 }
                 else if (Guid.TryParse(authData.UPN, out _)) //assume it's a clientId and password is a ClientSecret, and add the tenantId from web.config to fetch a token
                 {
@@ -85,7 +79,6 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy
                 {
                     //let adodb.net try to auth with th UPN/Password
                     constr = $"Data Source={server};User Id={authData.UPN};Password={authData.PasswordOrToken};Catalog={database};";// Persist Security Info=True; Impersonation Level=Impersonate";
-
                 }
 
             }

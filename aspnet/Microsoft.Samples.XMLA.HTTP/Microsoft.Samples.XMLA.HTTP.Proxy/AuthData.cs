@@ -17,6 +17,7 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy
     {
         public AuthData(HttpRequest req)
         {
+
             var authHeaderValue = req.Headers["Authorization"].FirstOrDefault();
             if (authHeaderValue == null)
             {
@@ -70,7 +71,7 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy
         public string UPN { get; set; }
         public string PasswordOrToken { get; set; }
 
-        public DateTime ValidTo { get; set; }
+      //  public DateTime ValidTo { get; set; }
     }
     
 }

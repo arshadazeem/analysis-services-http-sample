@@ -35,10 +35,10 @@ namespace Tester
             string tenantId = ConfigurationManager.AppSettings["TenantID"];
             string query = ConfigurationManager.AppSettings["Query"];
 
-            string aas = "asazure://centralus.asazure.windows.net/dbrowneaas";
-            string pbi = "powerbi://api.powerbi.com/v1.0/myorg/HttpEndpoint";
+          //  string aas = "asazure://centralus.asazure.windows.net/dbrowneaas";
+          //  string pbi = "powerbi://api.powerbi.com/v1.0/myorg/HttpEndpoint";
 
-            InteractiveLoginTest("dbrowne@dbrowne.onmicrosoft.com", pbi, "AdventureWorksDW");
+            //InteractiveLoginTest("dbrowne@dbrowne.onmicrosoft.com", pbi, "AdventureWorksDW");
 
             string token = GetBearerTokenAsync(clientId, clientSecret, tenantId).Result;
 
@@ -65,8 +65,6 @@ namespace Tester
             noneTest.AuthScheme = "";
             noneTest.ExpectedResponse = HttpStatusCode.Unauthorized;
             tests.Add(noneTest);
-
-            
 
             while (true)
             {

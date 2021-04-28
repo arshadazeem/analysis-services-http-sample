@@ -186,8 +186,14 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy.Controllers
                 }
 
 
+                log.LogInformation("***************************************");
                 log.LogError($"Failed to get ADODB connection for connection string: {msg}: {sb.ToString()}");
-                return this.Problem("Failed to get ADODB connection for connection string.  See server log for details.");
+                log.LogError($"Inner Exception, {ex.InnerException}");
+                log.LogError($"StackTrace, {ex.StackTrace}");
+                log.LogInformation("***************************************");
+
+
+                return this.Problem("Failed to get ADODB connection for connection string. See server log for details.");
                 
             }
 
@@ -251,5 +257,15 @@ namespace Microsoft.Samples.XMLA.HTTP.Proxy.Controllers
         }
 
 
+        [HttpGet("/api/sample-data")]
+        public JsonResult GetJsonResult(
+            [FromQuery] string param)
+        {
+            var json = System.IO.File.ReadAllText("dbresults.json");
+
+            return new JsonResult(json);
+        }
     }
+
+    
 }
